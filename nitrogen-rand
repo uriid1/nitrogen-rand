@@ -1,0 +1,39 @@
+#!/bin/bash
+
+#//******************************//#
+#//# Author: by uriid1			#//#
+#//# license: GNU GPL			#//#
+#//# telegram: uriid1			#//#
+#//# Mail: appdurov@gmail.com	#//#
+####****************************####
+
+path="/home/$USER/.config/nitrogen"
+pfile="file=${path}/wallpaper.jpg"
+count=0
+
+# Nitrogen
+if [ $count -eq 0 ]; then
+	sed -i "2d" "$path/bg-saved.cfg"
+	sed -i "1a""$pfile" "$path/bg-saved.cfg"
+	count=1
+fi
+
+# Get display H/W
+resolution=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
+
+# Download wallpaper
+wget -O /home/$USER/.config/nitrogen/wallpaper.jpg https://source.unsplash.com/random/$resolution
+nitrogen --restore
+
+# Sleep to change wallpaper
+if [ -z "$1" ]; then
+	# Default
+	sleep 10
+else
+	if [ "$1" == "-s" ]; then
+		sleep $2
+	fi
+fi
+
+# While
+exec "$0" && exit
