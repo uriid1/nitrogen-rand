@@ -22,7 +22,7 @@ fi
 resolution=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
 
 # Download wallpaper
-wget -O /home/$USER/.config/nitrogen/wallpaper.jpg https://source.unsplash.com/random/$resolution
+wget -O $path/wallpaper.jpg https://source.unsplash.com/random/$resolution
 nitrogen --restore
 
 # Sleep to change wallpaper
